@@ -1,7 +1,7 @@
 unit Unit1;
 
 interface
-// Maple Banana recourse ok£¡
+// Maple Banana recourse ok£¡£¡
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs,IniFiles, StrUtils, StdCtrls, ExtCtrls,shellapi,TLhelp32, jpeg,
