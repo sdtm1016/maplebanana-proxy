@@ -52,16 +52,16 @@ var
 
   i:integer;
   //----------------------------------
-    x:integer;    //ÎÆ²¨ÉêÃ÷
+    x:integer;    //çº¹æ³¢ç”³æ˜
 
        //----------------------------------
 a,b,s:string;
-//-------------------------------½âÑ¹Ä¿Â¼ÎÄ¼şÄ¿Â¼È«¾ÖÉêÃ÷  ¿ªÊ¼
+//-------------------------------è§£å‹ç›®å½•æ–‡ä»¶ç›®å½•å…¨å±€ç”³æ˜  å¼€å§‹
 path,StrObject,StrInfor:string;
 IntLengh:integer;
-   //------------------------½âÑ¹Ä¿Â¼ÎÄ¼şÄ¿Â¼È«¾ÖÉêÃ÷ ½áÊø
+   //------------------------è§£å‹ç›®å½•æ–‡ä»¶ç›®å½•å…¨å±€ç”³æ˜ ç»“æŸ
 
-     myinifile,myinifile1:Tinifile; //ini¸ñÊ½ÎÄ¼şÉêÃ÷
+     myinifile,myinifile1:Tinifile; //iniæ ¼å¼æ–‡ä»¶ç”³æ˜
 
 implementation
 
@@ -137,7 +137,7 @@ begin
    if   C   <   Index   then   Result   :=   0;
 end;
 
-//-------------------½ØÈ¡×Ö·û´®º¯Êı    ¿ªÊ¼
+//-------------------æˆªå–å­—ç¬¦ä¸²å‡½æ•°    å¼€å§‹
 function split(src,dec : string):TStringList;
 var
   i : integer;
@@ -161,21 +161,21 @@ begin
   if src<>'' then
     result.Add(src);
 end;
-    //-------------------½ØÈ¡×Ö·û´®º¯Êı½áÊø
+    //-------------------æˆªå–å­—ç¬¦ä¸²å‡½æ•°ç»“æŸ
   //--------------------------------------------------------------------
-  // ÅĞ¶ÏÎÄ¼ş¶ÀÕ¼ĞÔ
+  // åˆ¤æ–­æ–‡ä»¶ç‹¬å æ€§
 
 function IsFileInUse(fName : string) : boolean;
 var
    HFileRes : HFILE;
 begin
-   Result := false; //·µ»ØÖµÎª¼Ù(¼´ÎÄ¼ş²»±»Ê¹ÓÃ)
-   if not FileExists(fName) then exit; //Èç¹ûÎÄ¼ş²»´æÔÚÔòÍË³ö
+   Result := false; //è¿”å›å€¼ä¸ºå‡(å³æ–‡ä»¶ä¸è¢«ä½¿ç”¨)
+   if not FileExists(fName) then exit; //å¦‚æœæ–‡ä»¶ä¸å­˜åœ¨åˆ™é€€å‡º
    HFileRes := CreateFile(pchar(fName), GENERIC_READ or GENERIC_WRITE,
                0 {this is the trick!}, nil, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
-   Result := (HFileRes = INVALID_HANDLE_VALUE); //Èç¹ûCreateFile·µ»ØÊ§°ÜÄÇÃ´ResultÎªÕæ(¼´ÎÄ¼şÕıÔÚ±»Ê¹ÓÃ)
-   if not Result then //Èç¹ûCreateFileº¯Êı·µ»ØÊÇ³É¹¦
-   CloseHandle(HFileRes);   //ÄÇÃ´¹Ø±Õ¾ä±ú
+   Result := (HFileRes = INVALID_HANDLE_VALUE); //å¦‚æœCreateFileè¿”å›å¤±è´¥é‚£ä¹ˆResultä¸ºçœŸ(å³æ–‡ä»¶æ­£åœ¨è¢«ä½¿ç”¨)
+   if not Result then //å¦‚æœCreateFileå‡½æ•°è¿”å›æ˜¯æˆåŠŸ
+   CloseHandle(HFileRes);   //é‚£ä¹ˆå…³é—­å¥æŸ„
 end;
 //--------------------------------------------------------------------
 
@@ -197,7 +197,7 @@ StatusText: String; var Cancel: Boolean);
 begin
  Application.ProcessMessages;
     //Label1.Caption := StatusText;
-      StatusBar1.Panels[2].Text:='À´Ô´: '+StatusText;
+      StatusBar1.Panels[2].Text:='æ¥æº: '+StatusText;
 ProgressBar1.Max := ProgressMax;
 
 
@@ -216,14 +216,14 @@ var
 StrIni,filename:string;
 StrLocal,StrServer,hack,hack1,StrLocal1:string;
 
-//-----------------------°æ±¾ÅĞ¶Ï£¬×Ö·û´®½ØÈ¡
+//-----------------------ç‰ˆæœ¬åˆ¤æ–­ï¼Œå­—ç¬¦ä¸²æˆªå–
   ss : TStringList;
 
   str,dec : string;
-//-----------------------°æ±¾ÅĞ¶Ï£¬×Ö·û´®½ØÈ¡
+//-----------------------ç‰ˆæœ¬åˆ¤æ–­ï¼Œå­—ç¬¦ä¸²æˆªå–
  test:String;
   i,g:integer;
-  //--------------------------------ÅĞ¶Ï±¾µØºÍ·şÎñÆ÷°æ±¾ÊıÖµ´óĞ¡
+  //--------------------------------åˆ¤æ–­æœ¬åœ°å’ŒæœåŠ¡å™¨ç‰ˆæœ¬æ•°å€¼å¤§å°
   StrSplitLocal,StrSplitServer,hacker:string;
    t,y,g1:integer ;
     //--------------------------------decide the server with local version Number Variable
@@ -245,14 +245,14 @@ g:=0;
       StrIni:=myinifile.Readstring('version','info','');//read version of client
       edit2.Text:=  StrIni;
       StrLocal:=  StrIni;
-     form1.Caption:='·ãÒ¶Ïã½¶v'+ StrIni;
+     form1.Caption:='æ«å¶é¦™è•‰v'+ StrIni;
      //=========================================== download the version information form github server code begin
  MyStream:=TMemoryStream.Create;
         h:=Tidhttp.Create(nil);
         try
                 h.get('http://onionhacker.github.io/version.ini',MyStream);
         except
-                showmessage('ÍøÂç³ö´í!');
+                showmessage('ç½‘ç»œå‡ºé”™!');
                 MyStream.Free;
                 exit;
         end;
@@ -269,12 +269,12 @@ g:=0;
          hack:= StrServer+  '|' + StrLocal+'|';
 
 
- //¶ÁÈ¡°æ±¾ĞÅÏ¢ ½áÊø
- //----------------------------------ÅĞ¶Ï°æ±¾ÊÇ·ñĞèÒªÉı¼¶
-       //-----------------------------------------------------------------»ñÈ¡±¾µØ°æ±¾ÊıÖµ    begin
+ //è¯»å–ç‰ˆæœ¬ä¿¡æ¯ ç»“æŸ
+ //----------------------------------åˆ¤æ–­ç‰ˆæœ¬æ˜¯å¦éœ€è¦å‡çº§
+       //-----------------------------------------------------------------è·å–æœ¬åœ°ç‰ˆæœ¬æ•°å€¼    begin
  //memo1.Text:='';
    for i:=0 to 6 do
-   begin        //±éÀúÎÄ±¾£¬°ÑÃ¿ĞĞÊı¾İ´æÈëÊı×é
+   begin        //éå†æ–‡æœ¬ï¼ŒæŠŠæ¯è¡Œæ•°æ®å­˜å…¥æ•°ç»„
  dec := '.';
   ss := split(hack,dec);
 test:=ss[g];
@@ -285,12 +285,12 @@ test:=ss[g];
  // memo3.Text:= StrLocal1;
     hacker:=StrLocal1;
  end ;
-     //-------------------------------------------------------------»ñÈ¡±¾µØ°æ±¾ÊıÖµ  ½áÊø
+     //-------------------------------------------------------------è·å–æœ¬åœ°ç‰ˆæœ¬æ•°å€¼  ç»“æŸ
 
 
-  g:= PosEx( hacker, '|',1);//·µ»Ø5
+  g:= PosEx( hacker, '|',1);//è¿”å›5
 
-   g1:=PosEx(hacker, '|',2);//·µ»Ø5
+   g1:=PosEx(hacker, '|',2);//è¿”å›5
 
 //memo1.Text:=Copy(hacker,g+1,g1-g-1);
 LocalNum:=strtoint(Copy(hacker,g+1,g1-g-1));
@@ -299,20 +299,20 @@ ServerNum:=strtoint(Copy(hacker,1,g-1));
 
 
 
-    //------------------------------      ÅĞ¶ÏÊÇ·ñÉı¼¶
+    //------------------------------      åˆ¤æ–­æ˜¯å¦å‡çº§
 
 
-    //----------------------------------        ÅĞ¶ÏÊÇ·ñÉı¼¶
+    //----------------------------------        åˆ¤æ–­æ˜¯å¦å‡çº§
 
-     //-----------------------»ñÈ¡Éı¼¶ÎÄ¼şÄ¿±êÂ·¾¶
+     //-----------------------è·å–å‡çº§æ–‡ä»¶ç›®æ ‡è·¯å¾„
 
    IntLengh:=length(path)-8;
     StrObject:=Copy(path,1,IntLengh)+'\proxy tool\';
 
-    //-----------------------»ñÈ¡Éı¼¶ÎÄ¼şÄ¿±êÂ·¾¶
+    //-----------------------è·å–å‡çº§æ–‡ä»¶ç›®æ ‡è·¯å¾„
 
 
-         StatusBar1.Panels[0].Text:='¾ÍĞ÷';
+         StatusBar1.Panels[0].Text:='å°±ç»ª';
 
   b:=StrObject+'update.zip';
 
@@ -331,7 +331,7 @@ end;
 
 if ServerNum>LocalNum then
 begin
-       StatusBar1.Panels[3].Text:='ÓĞÉı¼¶°æ±¾';
+       StatusBar1.Panels[3].Text:='æœ‰å‡çº§ç‰ˆæœ¬';
        BUTTON1.Enabled:=true;
 
 killtask('goagent.exe');
@@ -346,7 +346,7 @@ end
 else
 begin
 button1.Enabled:=FALSE;
-   StatusBar1.Panels[3].Text:='ÄãÒÑ¾­ÊÇ×îĞÂ°æ';
+   StatusBar1.Panels[3].Text:='ä½ å·²ç»æ˜¯æœ€æ–°ç‰ˆ';
 end;
 
 end;
@@ -363,7 +363,7 @@ s:string;
 begin
   i:= ProgressBar1.Position;
 
-      StatusBar1.Panels[1].Text:='ÒÑ¾­ÏÂÔØ£º'+inttostr(i)+'×Ö½Ú';
+      StatusBar1.Panels[1].Text:='å·²ç»ä¸‹è½½ï¼š'+inttostr(i)+'å­—èŠ‚';
 
 
 
@@ -381,16 +381,16 @@ begin
 
        if      IsFileInUse(b) then
 begin
-         StatusBar1.Panels[0].Text:='ÏÂÔØÖĞ..';
+         StatusBar1.Panels[0].Text:='ä¸‹è½½ä¸­..';
 end
 
   else
   begin
-           StatusBar1.Panels[0].Text:='ÏÂÔØ½áÊø!!';
+           StatusBar1.Panels[0].Text:='ä¸‹è½½ç»“æŸ!!';
             timer2.Enabled:=false;
 
             button1.Enabled:=false;
-            StatusBar1.Panels[3].Text:='¸üĞÂÍê³É';
+            StatusBar1.Panels[3].Text:='æ›´æ–°å®Œæˆ';
             edit2.Text:=StrInfor;
 
 
