@@ -52,16 +52,16 @@ var
 
   i:integer;
   //----------------------------------
-    x:integer;    //纹波申明
+    x:integer;   
 
        //----------------------------------
 a,b,s:string;
-//-------------------------------解压目录文件目录全局申明  开始
+//-------------------------------Unzip directory 
 path,StrObject,StrInfor:string;
 IntLengh:integer;
-   //------------------------解压目录文件目录全局申明 结束
+   //------------------------Unzip directory 
 
-     myinifile,myinifile1:Tinifile; //ini格式文件申明
+     myinifile,myinifile1:Tinifile; //ini type 
 
 implementation
 
@@ -137,7 +137,7 @@ begin
    if   C   <   Index   then   Result   :=   0;
 end;
 
-//-------------------截取字符串函数    开始
+
 function split(src,dec : string):TStringList;
 var
   i : integer;
@@ -161,21 +161,21 @@ begin
   if src<>'' then
     result.Add(src);
 end;
-    //-------------------截取字符串函数结束
+
   //--------------------------------------------------------------------
-  // 判断文件独占性
+  // Judgment the file exclusivity
 
 function IsFileInUse(fName : string) : boolean;
 var
    HFileRes : HFILE;
 begin
-   Result := false; //返回值为假(即文件不被使用)
-   if not FileExists(fName) then exit; //如果文件不存在则退出
+   Result := false; //return false  (while the file unused)
+   if not FileExists(fName) then exit; //if the file not exist,THE EXIT
    HFileRes := CreateFile(pchar(fName), GENERIC_READ or GENERIC_WRITE,
                0 {this is the trick!}, nil, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
-   Result := (HFileRes = INVALID_HANDLE_VALUE); //如果CreateFile返回失败那么Result为真(即文件正在被使用)
-   if not Result then //如果CreateFile函数返回是成功
-   CloseHandle(HFileRes);   //那么关闭句柄
+   Result := (HFileRes = INVALID_HANDLE_VALUE); //if CreateFile will return  fail that Result is true (while the file been used)
+   if not Result then //
+   CloseHandle(HFileRes);   //
 end;
 //--------------------------------------------------------------------
 
@@ -216,23 +216,23 @@ var
 StrIni,filename:string;
 StrLocal,StrServer,hack,hack1,StrLocal1:string;
 
-//-----------------------版本判断，字符串截取
+//-----------------------determine the version ，string split
   ss : TStringList;
 
   str,dec : string;
-//-----------------------版本判断，字符串截取
+//-----------------------determine the version ，string split
  test:String;
   i,g:integer;
-  //--------------------------------判断本地和服务器版本数值大小
+  //--------------------------------Compare the size of the local and server versions
   StrSplitLocal,StrSplitServer,hacker:string;
    t,y,g1:integer ;
-    //--------------------------------decide the server with local version Number Variable
+    //--------------------------------decide the server with local version Number 
    ServerNum,LocalNum:integer;
-   //================================================declare the download function Variable Code begin
+   //================================================Declare the download  file   begin
    h:TIdhttp;
 res : String;
 MyStream:TMemoryStream;
-//=========================================== Declare the download function Variable Code end
+//=========================================== Declare the download  file  end
 begin
 
 //begin on reading the version information
@@ -242,15 +242,15 @@ g:=0;
   edit2.Text:='';
 
  myinifile:=Tinifile.Create(path+'\LocalVerson.ini');
-      StrIni:=myinifile.Readstring('version','info','');//read version of client
+      StrIni:=myinifile.Readstring('version','info','');//read version information
       edit2.Text:=  StrIni;
       StrLocal:=  StrIni;
      form1.Caption:='枫叶香蕉v'+ StrIni;
-     //=========================================== download the version information form github server code begin
+     //=========================================== fetch the  file begin
  MyStream:=TMemoryStream.Create;
         h:=Tidhttp.Create(nil);
         try
-                h.get('http://onionhacker.github.io/version.ini',MyStream);
+                h.get('http://onionhacker.github.io/version.ini',MyStream);//fetch the file from update server!
         except
                 showmessage('网络出错!');
                 MyStream.Free;
@@ -258,7 +258,7 @@ g:=0;
         end;
         MyStream.SaveToFile(path+'\ServerVerson.ini');
         MyStream.Free;
- //===========================================  download the version information form github server code ending
+ //===========================================  fetch the  file  begin
 
   myinifile:=Tinifile.Create(path+'\ServerVerson.ini');
       StrInfor:=myinifile.Readstring('version','info','');
@@ -269,12 +269,12 @@ g:=0;
          hack:= StrServer+  '|' + StrLocal+'|';
 
 
- //读取版本信息 结束
- //----------------------------------判断版本是否需要升级
-       //-----------------------------------------------------------------获取本地版本数值    begin
+ //fetch the  file  end
+
+       //-----------------------------------------------------------------get local  number   begin
  //memo1.Text:='';
    for i:=0 to 6 do
-   begin        //遍历文本，把每行数据存入数组
+   begin        //Traverse the text, put each row of data store into an array
  dec := '.';
   ss := split(hack,dec);
 test:=ss[g];
@@ -285,12 +285,12 @@ test:=ss[g];
  // memo3.Text:= StrLocal1;
     hacker:=StrLocal1;
  end ;
-     //-------------------------------------------------------------获取本地版本数值  结束
+     //-------------------------------------------------------------get local number   end
 
 
-  g:= PosEx( hacker, '|',1);//返回5
+  g:= PosEx( hacker, '|',1);//Return position
 
-   g1:=PosEx(hacker, '|',2);//返回5
+   g1:=PosEx(hacker, '|',2);//Return position
 
 //memo1.Text:=Copy(hacker,g+1,g1-g-1);
 LocalNum:=strtoint(Copy(hacker,g+1,g1-g-1));
@@ -299,18 +299,14 @@ ServerNum:=strtoint(Copy(hacker,1,g-1));
 
 
 
-    //------------------------------      判断是否升级
 
 
-    //----------------------------------        判断是否升级
-
-     //-----------------------获取升级文件目标路径
+     //-----------------------get update file Directory
 
    IntLengh:=length(path)-8;
     StrObject:=Copy(path,1,IntLengh)+'\proxy tool\';
 
-    //-----------------------获取升级文件目标路径
-
+    //-----------------------get the update file Directory
 
          StatusBar1.Panels[0].Text:='就绪';
 
