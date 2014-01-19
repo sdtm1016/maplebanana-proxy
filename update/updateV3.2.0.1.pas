@@ -1,6 +1,6 @@
  unit Unit1;
 interface
-//��Ҷ�㽶v3.2.0.1 update client resource
+//枫叶香蕉v3.2.0.1 update client resource
 uses
 Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
 Dialogs, StdCtrls, ExtActns, ComCtrls, Vcl.ExtCtrls, Vcl.Imaging.jpeg,
