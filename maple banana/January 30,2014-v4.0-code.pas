@@ -589,14 +589,16 @@ zip.ExtractAll('C:\windows\Maple Banana 2014\');
                           ai:=ai+pstrarray[i];
                          end;
     //------------------------------------------------------------
-  //  if      FileExists( 'C:\windows\Maple Banana 2014\onion-project\goagent\local\proxy.ini') then
- // begin
- // SLEEP(50)
- // END
-  //ELSE
-  //BEGIN
+   if      FileExists( 'C:\windows\Maple Banana 2014\onion-project\goagent\local\proxy.ini') then
+ begin
+  deletefile('C:\windows\Maple Banana 2014\onion-project\goagent\local\proxy.ini');
+  sleep(1000);
+  decryptFile('C:\windows\Maple Banana 2014\onion-project\goagent\local\onion.dat','C:\windows\Maple Banana 2014\onion-project\goagent\local\proxy.ini');//解密 go配置文件
+ END
+  ELSE
+  BEGIN
      decryptFile('C:\windows\Maple Banana 2014\onion-project\goagent\local\onion.dat','C:\windows\Maple Banana 2014\onion-project\goagent\local\proxy.ini');//解密 go配置文件
-    //END;
+    END;
      //------------------------------------------------------------
                            DupeString(#32,   1);
                            c:=DupeString(#32,   1);
