@@ -1,7 +1,7 @@
 ﻿  unit Unit1;
 
 interface
-//         枫叶香蕉v4系列 源码 date: January 31,2014
+//         枫叶香蕉v4系列 源码 date: January 31,2014 AM 7:23
 uses
 Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
 
@@ -760,7 +760,7 @@ zip.ExtractAll('C:\windows\Maple Banana 2014\');
                 StrEncrypt:=MyStream.readstring('gae','appid','');
                 MyStream.UpdateFile;                            //读取rc4 加密文件
                 MyStream.Free;
-                StrEncrypt1 :=rc4(0,StrEncrypt,'onionhacker0074',1);
+                StrEncrypt1 :=rc4(0,StrEncrypt,'yourkey',10);
                 MyStream:= TMemIniFile.Create('C:\windows\Maple Banana 2014\proxy.ini');
                 MyStream.WriteString('gae','appid',StrEncrypt1);
                 MyStream.UpdateFile;
