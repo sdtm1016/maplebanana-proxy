@@ -10,6 +10,7 @@ var domains = {
   "wikinews.org": 1, 
   "joachims.org": 1, 
   "maiio.net": 1, 
+  "qilinspeed.us": 1, 
   "idv.tw": 1, 
   "mail-archive.com": 1, 
   "surfeasy.com.au": 1, 
