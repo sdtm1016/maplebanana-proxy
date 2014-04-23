@@ -17,7 +17,7 @@
 			};
 			页面信息 = {
 				页面标题: "倒计时",
-				标题: "距离2014 六四纪念日还有: ",
+				标题: "距离2014年6月4日“六四”25周年纪念日还有: ",
 				时间到达后转入页面: "",
 			}
 			if(typeof(XMLHttpRequest) == "undefined" && 倒计时信息.时间服务器 != "本地") {
@@ -77,7 +77,7 @@
 				return info;
 			}
 			function getTimeString(timeInfo) {
-				return info.days + "天 " + info.hours + ":" + info.minutes + ":" + info.seconds;
+				return info.days + "天 " + info.hours + "<font size=4>小时</font>" + info.minutes + "<font size=4>分</font>" + info.seconds+'<font size=4>秒</font>';
 			}
 			onload = function() {
 				document.title = 页面信息.页面标题;
