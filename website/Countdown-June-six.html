@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
+                <p style="text-align:center"><img src="tiananmen.jpg"></p>
+		<script>
+			倒计时信息 = {
+				//从UTC时间1970年1月1日0:00:00开始，以毫秒为单位
+				目标时间: 1401811200000,
+				//如果使用本地时间，取消注释以下行
+				时间服务器: "本地",
+				//如果使用服务器时间，取消注释以下行并指定时间服务器
+				//时间服务器: "http://gettimestamp.azurewebsites.net/",
+				更新间隔: 0,
+			};
+			页面信息 = {
+				页面标题: "倒计时",
+				标题: "距离2014 六四纪念日还有: ",
+				时间到达后转入页面: "",
+			}
+			if(typeof(XMLHttpRequest) == "undefined" && 倒计时信息.时间服务器 != "本地") {
+				try {
+					XMLHttpRequest = new ActiveXObject("Microsoft.XMLHttp");
+				}
+				catch(err) {
+					console.warn("当前浏览器不支持远程时间，将改用本地时间");
+					倒计时信息.时间服务器 = "本地";
+				}
+			}
+			function getCurrentTime() {
+				if(倒计时信息.时间服务器 != "本地") {
+					req = new XMLHttpRequest();
+					req.open("GET", 倒计时信息.时间服务器, false);
+					req.send(null);
+					return parseInt(req.responseText);
+				}
+				else {
+					return new Date().getTime();
+				}
+			}
+			function getCountDownInformation(currentTime) {
+				timeDifference = 倒计时信息.目标时间 - currentTime;
+				info = {
+					days: 0,
+					hours: 0,
+					minutes: 0,
+					seconds: 0,
+					mseconds: 0,
+				};
+				if(timeDifference <= 0 && 页面信息.时间到达后转入页面 != "") {
+					location.href = 页面信息.时间到达后转入页面;
+					页面信息.时间到达后转入页面 = "";
+					return info;
+				}
+				info.days = parseInt(timeDifference / 86400000);
+				if(info.days < 0) {
+					info.days = 0;
+				}
+				info.hours = parseInt(timeDifference / 3600000 - info.days * 24);
+				if(info.hour < 0) {
+					info.hours = 0;
+				}
+				info.minutes = parseInt(timeDifference / 60000 - info.hours * 60 - info.days * 1440);
+				if(info.minutes < 0) {
+					info.minutes = 0;
+				}
+				info.seconds = parseInt(timeDifference / 1000 - info.minutes * 60 - info.hours * 3600 - info.days * 86400);
+				if(info.seconds < 0) {
+					info.seconds = 0;
+				}
+				info.mseconds = timeDifference - info.seconds * 1000 - info.minutes * 60000 - info.hours * 3600000 - info.days * 86400000;
+				if(info.mseconds < 0) {
+					info.mseconds = 0;
+				}
+				return info;
+			}
+			function getTimeString(timeInfo) {
+				return info.days + "天 " + info.hours + ":" + info.minutes + ":" + info.seconds;
+			}
+			onload = function() {
+				document.title = 页面信息.页面标题;
+				document.getElementById("title").innerHTML = 页面信息.标题;
+				setInterval(function() {
+					document.getElementById("timer").innerHTML = getTimeString(getCountDownInformation(getCurrentTime()));
+				}, 倒计时信息.更新间隔);
+			}
+		</script>
+		<style>
+			p, h1 {
+				text-align: center;
+				font-family: 微软雅黑, 黑体;
+			}
+			p {
+				margin-bottom: 50px;
+			}
+			body {
+				padding-top: 10%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="jumbotron">
+				<p class="lead" id="title"></p>
+				<h1 id="timer">载入中...</h1>
+			</div>
+		</div>
+	</body>
+</html>
